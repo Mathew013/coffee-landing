@@ -8,6 +8,10 @@ body {
     font-family: Arial, sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -15,6 +19,12 @@ body {
     padding: 16px 24px;
     background: #3b2a20;
     color: #fff;
+    position: sticky;
+    /* ← новое: "прилипает" при прокрутке */
+    top: 0;
+    /* ← новое: прилипает к самому верху экрана */
+    z-index: 50;
+    /* ← новое: поверх содержимого страницы */
 }
 
 .logo {
@@ -45,6 +55,103 @@ body {
 .section {
     min-height: 80vh;
     padding: 40px 24px;
+    scroll-margin-top: 70px;
+    /* ← новое: отступ сверху при переходе по ссылке */
+}
+
+/* ---- Главный экран ---- */
+.hero {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    padding: 40px 24px;
+    background: #f5ede6;
+}
+
+.hero h1 {
+    font-size: 40px;
+    color: #3b2a20;
+}
+
+/* ---- Кнопка ---- */
+.btn {
+    background: #3b2a20;
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #5a4030;
+}
+
+/* ---- Модальное окно ---- */
+.modal {
+    display: none;
+    /* по умолчанию спрятано */
+    position: fixed;
+    /* приклеено к экрану, не прокручивается */
+    inset: 0;
+    /* растянуто на весь экран */
+    background: rgba(0, 0, 0, 0.6);
+    /* полупрозрачный тёмный фон */
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    z-index: 100;
+    /* поверх всего остального */
+}
+
+.modal.open {
+    display: flex;
+    /* открыто — показываем */
+}
+
+.modal__window {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    max-width: 400px;
+    padding: 32px 24px;
+    border-radius: 12px;
+}
+
+.modal__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* ---- Форма ---- */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.form input,
+.form select {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Запрет прокрутки сайта, пока открыто окно */
+body.no-scroll {
+    overflow: hidden;
 }
 
 /* ---- Телефон ---- */
@@ -58,7 +165,7 @@ body {
         display: none;
         /* меню спрятано */
         position: absolute;
-        top: 64px;
+        top: 100%;
         left: 0;
         right: 0;
         flex-direction: column;

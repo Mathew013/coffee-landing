@@ -19,10 +19,16 @@
             <a href="#menu">Меню</a>
             <a href="#about">О нас</a>
             <a href="#contacts">Контакты</a>
+            <a href="#" id="navBooking">Бронь</a>
         </nav>
     </header>
 
     <main>
+        <section class="hero">
+            <h1>Кофейня «Зерно»</h1>
+            <p>Свежая обжарка каждый день</p>
+            <button class="btn" id="openModal">Забронировать столик</button>
+        </section>
         <section id="menu" class="section">
             <h2>Меню</h2>
         </section>
@@ -33,6 +39,27 @@
             <h2>Контакты</h2>
         </section>
     </main>
+
+    <div class="modal" id="modal">
+        <div class="modal__window">
+            <button class="modal__close" id="modalClose" aria-label="Закрыть">✕</button>
+
+            <h2>Забронировать столик</h2>
+
+            <form class="form" id="bookingForm">
+                <input type="text" name="name" placeholder="Ваше имя" required>
+                <input type="tel" name="phone" placeholder="Телефон" required>
+                <input type="date" name="date" required>
+                <select name="guests">
+                    <option value="1">1 гость</option>
+                    <option value="2" selected>2 гостя</option>
+                    <option value="3">3 гостя</option>
+                    <option value="4">4 и больше</option>
+                </select>
+                <button type="submit" class="btn">Отправить</button>
+            </form>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
