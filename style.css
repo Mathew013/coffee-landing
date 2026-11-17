@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: #3b2a20;
+    color: #fff;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav {
+    display: flex;
+    gap: 24px;
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.burger {
+    display: none;
+    /* на компьютере кнопку не показываем */
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.section {
+    min-height: 80vh;
+    padding: 40px 24px;
+}
+
+/* ---- Телефон ---- */
+@media (max-width: 768px) {
+    .burger {
+        display: block;
+        /* на телефоне кнопка появляется */
+    }
+
+    .nav {
+        display: none;
+        /* меню спрятано */
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: #3b2a20;
+        padding: 16px 24px;
+    }
+
+    .nav.open {
+        display: flex;
+        /* когда есть класс open — меню видно */
+    }
+}
