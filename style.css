@@ -154,6 +154,24 @@ body.no-scroll {
     overflow: hidden;
 }
 
+/* ---- Сообщение после отправки ---- */
+[hidden] {
+    display: none !important;
+    /* hidden всегда прячет элемент */
+}
+
+.form-success {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.form-success__icon {
+    font-size: 48px;
+}
+
 /* ---- Телефон ---- */
 @media (max-width: 768px) {
     .burger {

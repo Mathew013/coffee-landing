@@ -32,9 +32,13 @@ const modal = document.getElementById('modal');
 const openModalBtn = document.getElementById('openModal');
 const closeModalBtn = document.getElementById('modalClose');
 const form = document.getElementById('bookingForm');
+const formSuccess = document.getElementById('formSuccess');
+const successClose = document.getElementById('successClose');
 
 // Свои функции: открыть и закрыть окно
 function openModal() {
+    form.hidden = false;
+    formSuccess.hidden = true;
     modal.classList.add('open');
     document.body.classList.add('no-scroll');
 }
@@ -65,16 +69,20 @@ document.addEventListener('keydown', function (event) {
 });
 
 // Отправка формы
+// Отправка формы
 form.addEventListener('submit', function (event) {
-    event.preventDefault();   // не даём странице перезагрузиться
+    event.preventDefault();
 
     const data = new FormData(form);
     console.log('Новая заявка:', data.get('name'), data.get('phone'), data.get('date'), data.get('guests'));
 
-    form.reset();             // очищаем поля
-    closeModal();
-    alert('Спасибо! Мы скоро вам позвоним.');
+    form.reset();
+    form.hidden = true;          // прячем форму
+    formSuccess.hidden = false;  // показываем «Спасибо»
 });
+
+// Кнопка «Хорошо» закрывает окно
+successClose.addEventListener('click', closeModal);
 
 // ---- Пункт "Бронь" в меню ----
 const navBooking = document.getElementById('navBooking');
