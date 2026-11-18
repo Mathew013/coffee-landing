@@ -1,3 +1,6 @@
+// Адрес прослойки (Cloudflare Worker), куда отправляются заявки
+const WORKER_URL = 'https://zerno-booking.mismirnov20102906.workers.dev';
+
 // 1. Находим элементы на странице по их id
 const burger = document.getElementById('burger');
 const nav = document.getElementById('nav');
@@ -34,11 +37,13 @@ const closeModalBtn = document.getElementById('modalClose');
 const form = document.getElementById('bookingForm');
 const formSuccess = document.getElementById('formSuccess');
 const successClose = document.getElementById('successClose');
+const formError = document.getElementById('formError');
 
 // Свои функции: открыть и закрыть окно
 function openModal() {
     form.hidden = false;
     formSuccess.hidden = true;
+    formError.hidden = true;
     modal.classList.add('open');
     document.body.classList.add('no-scroll');
 }
@@ -69,16 +74,42 @@ document.addEventListener('keydown', function (event) {
 });
 
 // Отправка формы
-// Отправка формы
-form.addEventListener('submit', function (event) {
+// Отправка формы в Worker → Telegram
+form.addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    const data = new FormData(form);
-    console.log('Новая заявка:', data.get('name'), data.get('phone'), data.get('date'), data.get('guests'));
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const booking = Object.fromEntries(new FormData(form));
 
-    form.reset();
-    form.hidden = true;          // прячем форму
-    formSuccess.hidden = false;  // показываем «Спасибо»
+    // Блокируем кнопку, чтобы не отправили дважды
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправляем…';
+    formError.hidden = true;
+
+    try {
+        const response = await fetch(WORKER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(booking),
+            signal: AbortSignal.timeout(10000),   // ждём не больше 10 секунд
+        });
+
+        const result = await response.json();
+
+        if (!result.ok) {
+            throw new Error(result.error);
+        }
+
+        form.reset();
+        form.hidden = true;
+        formSuccess.hidden = false;
+    } catch (error) {
+        console.log('Ошибка отправки:', error);
+        formError.hidden = false;
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Отправить';
+    }
 });
 
 // Кнопка «Хорошо» закрывает окно

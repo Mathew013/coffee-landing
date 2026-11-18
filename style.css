@@ -172,6 +172,17 @@ body.no-scroll {
     font-size: 48px;
 }
 
+.form-error {
+    color: #b3261e;
+    font-size: 14px;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+    /* кнопка «занята», нажимать нельзя */
+}
+
 /* ---- Телефон ---- */
 @media (max-width: 768px) {
     .burger {
