@@ -177,6 +177,15 @@ body.no-scroll {
     font-size: 14px;
 }
 
+/* Ловушка для ботов: поле есть в коде, но человек его не видит */
+.form__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
 .btn:disabled {
     opacity: 0.6;
     cursor: default;

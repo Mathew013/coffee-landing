@@ -39,6 +39,39 @@ const formSuccess = document.getElementById('formSuccess');
 const successClose = document.getElementById('successClose');
 const formError = document.getElementById('formError');
 
+// ---- Маска телефона ----
+const phoneInput = form.querySelector('input[name="phone"]');
+
+function formatPhone(value) {
+    let digits = value.replace(/\D/g, '');   // оставляем только цифры
+
+    if (!digits) {
+        return '';                             // поле очистили — оставляем пустым
+    }
+
+    if (digits.startsWith('8')) {
+        digits = '7' + digits.slice(1);        // 8 912... → 7 912...
+    }
+
+    if (!digits.startsWith('7')) {
+        digits = '7' + digits;                 // начали с 9 — дописываем 7 впереди
+    }
+
+    digits = digits.slice(0, 11);            // в номере 11 цифр, лишние отбрасываем
+
+    let result = '+7';
+    if (digits.length > 1) result += ' (' + digits.slice(1, 4);
+    if (digits.length > 4) result += ') ' + digits.slice(4, 7);
+    if (digits.length > 7) result += '-' + digits.slice(7, 9);
+    if (digits.length > 9) result += '-' + digits.slice(9, 11);
+
+    return result;
+}
+
+phoneInput.addEventListener('input', function () {
+    phoneInput.value = formatPhone(phoneInput.value);
+});
+
 // Свои функции: открыть и закрыть окно
 function openModal() {
     form.hidden = false;

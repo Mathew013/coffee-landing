@@ -48,7 +48,8 @@
 
             <form class="form" id="bookingForm">
                 <input type="text" name="name" placeholder="Ваше имя" required>
-                <input type="tel" name="phone" placeholder="Телефон" required>
+                <input type="tel" name="phone" placeholder="+7 (999) 123-45-67" required
+                    pattern="\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}" title="Номер в формате +7 (999) 123-45-67">
                 <input type="date" name="date" required>
                 <select name="guests">
                     <option value="1">1 гость</option>
@@ -56,6 +57,8 @@
                     <option value="3">3 гостя</option>
                     <option value="4">4 и больше</option>
                 </select>
+                <input type="text" name="website" class="form__trap" tabindex="-1" autocomplete="off"
+                    aria-hidden="true">
                 <p class="form-error" id="formError" hidden>
                     Не получилось отправить заявку. Попробуйте ещё раз или позвоните нам.
                 </p>
