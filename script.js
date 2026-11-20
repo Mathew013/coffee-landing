@@ -39,6 +39,17 @@ const formSuccess = document.getElementById('formSuccess');
 const successClose = document.getElementById('successClose');
 const formError = document.getElementById('formError');
 
+const dateInput = form.querySelector('input[name="date"]');
+
+// Сегодняшняя дата в формате 2026-11-20 (по времени компьютера посетителя)
+function getToday() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 // ---- Маска телефона ----
 const phoneInput = form.querySelector('input[name="phone"]');
 
@@ -77,6 +88,7 @@ function openModal() {
     form.hidden = false;
     formSuccess.hidden = true;
     formError.hidden = true;
+    dateInput.min = getToday();   // нельзя выбрать прошедшую дату
     modal.classList.add('open');
     document.body.classList.add('no-scroll');
 }
